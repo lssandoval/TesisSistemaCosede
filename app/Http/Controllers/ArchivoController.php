@@ -38,8 +38,8 @@ class ArchivoController extends Controller
             $chunkSize = 1000; // Tamaño del fragmento
             $highestRow = $worksheet->getHighestRow();
             $highestColumn = $worksheet->getHighestColumn();
-            
-            for ($startRow = 1; $startRow <= $highestRow; $startRow += $chunkSize) {
+
+            for ($startRow = 2; $startRow <= $highestRow; $startRow += $chunkSize) { // Comenzar desde la fila 2
                 $endRow = min($startRow + $chunkSize - 1, $highestRow);
 
                 for ($row = $startRow; $row <= $endRow; $row++) {
@@ -88,6 +88,7 @@ class ArchivoController extends Controller
         return Redirect::back()->with('error', 'No se ha enviado ningún archivo');
     }
 
+
     public function subirArchivoComponentes(Request $request)
     {
         if ($request->hasFile('archivo')) {
@@ -107,8 +108,8 @@ class ArchivoController extends Controller
             $chunkSize = 1000;
             $highestRow = $worksheet->getHighestRow();
             $highestColumn = $worksheet->getHighestColumn();
-            
-            for ($startRow = 1; $startRow <= $highestRow; $startRow += $chunkSize) {
+
+            for ($startRow = 2; $startRow <= $highestRow; $startRow += $chunkSize) { // Comenzar desde la fila 2
                 $endRow = min($startRow + $chunkSize - 1, $highestRow);
 
                 for ($row = $startRow; $row <= $endRow; $row++) {
@@ -139,11 +140,5 @@ class ArchivoController extends Controller
         }
 
         return Redirect::back()->with('error', 'No se ha enviado ningún archivo');
-    }
-
-    public function historialCarga()
-    {
-        $historial = ArchivoHistorial::all();
-        return view('reporte.historial-carga', compact('historial'));
     }
 }

@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'permission' => [
+        'roles' => explode(',', env('ROLES_PERMISSIONS', '')),
+        'uploadB' => explode(',', env('BIENES_UPLOAD_PERMISSIONS', '')),
+        'uploadC' => explode(',', env('COMPONENTES_UPLOAD_PERMISSIONS', '')),
+    ],
+
 ];

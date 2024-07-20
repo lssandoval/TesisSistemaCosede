@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BienesController;
 use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\GenerarListaQRController;
 use App\Http\Controllers\MantenimientoController;
@@ -20,12 +21,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
 
     // Rutas relacionadas con los bienes
-    Route::get('/bienes', [BienesController::class, 'index'])->name('bienes');
+    Route::get('/bienes', [BienesController::class, 'index'])->name('bienes')->middleware(['subscribed:UTIC,UIN,\'\'']);
     Route::get('datatable/bienes', [BienesController::class, 'bienes'])->name('datatable.bienes');
     Route::get('/editar-bien/{id}', [BienesController::class, 'editarBien'])->name('editar-bien');
     Route::delete('/eliminar-bien', [BienesController::class, 'eliminar'])->name('eliminar-bien');

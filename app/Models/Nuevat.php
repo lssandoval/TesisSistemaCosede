@@ -8,8 +8,7 @@ class Nuevat extends Model
 {
     protected $table = 'nuevat'; // Nombre de la tabla en la base de datos
     protected $primaryKey = 'id'; // Clave primaria de la tabla
-
-    // Aquí puedes especificar los campos que puedes rellenar
+    public $incrementing = true; // Define si la clave primaria es auto-incremental
     protected $fillable = [
         'codigo_bien',
         'en_uso',
@@ -32,4 +31,10 @@ class Nuevat extends Model
         'modelo_esbye',
         'descripcion_esbye'
     ];
+
+    // Relación uno a muchos con la tabla nuevaC
+    public function nuevaCs()
+    {
+        return $this->hasMany(NuevaC::class, 'codigo_bien', 'codigo_bien');
+    }
 }

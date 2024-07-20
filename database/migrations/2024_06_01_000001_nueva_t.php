@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::connection('pgsql')->create('nuevat', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_bien')->nullable();
+            $table->string('codigo_bien')->unique()->nullable(); // Hacer que la columna sea única
             $table->string('en_uso')->default(false);
             $table->string('tipo')->nullable();
             $table->string('marca')->nullable();

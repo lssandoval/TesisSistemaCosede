@@ -33,7 +33,7 @@ class JetstreamServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configurePermissions();
-        
+
         Fortify::authenticateUsing(function ($request) {
             $validated = Auth::validate([
                 'samaccountname' => $request->username, 'password' => $request->password

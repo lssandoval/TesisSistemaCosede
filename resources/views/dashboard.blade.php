@@ -6,25 +6,34 @@
     </x-slot>
 
     <div class="py-12">
+        @php
+            // Obtener los permisos desde el archivo de configuración
+            $rolesPermissions = config('services.permission.roles');
+            $uploadBPermissions = config('services.permission.uploadB');
+            $uploadCPermissions = config('services.permission.uploadC');
+        @endphp
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Primera Sección -->
-            <div class="bg-gray-400 shadow overflow-hidden shadow-xl sm:rounded-lg mb-8">
-                <div class="flex">
-                    <!-- Primer Div -->
-                    <div class="w-1/2 p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Asignar Roles</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-300">Asignar y gestionar roles para los usuarios del sistema.</p>
-                    </div>
+            @if ($persona && in_array($persona->per_unidad, $rolesPermissions))
+                <div class="bg-gray-400 shadow overflow-hidden shadow-xl sm:rounded-lg mb-8">
+                    <div class="flex">
+                        <!-- Primer Div -->
+                        <div class="w-1/2 p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Asignar Roles</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">Asignar y gestionar roles para los usuarios del sistema.</p>
+                        </div>
 
-                    <!-- Espacio para Iconos -->
-                    <div class="w-1/2 flex justify-end items-center px-6">
-                        <!-- Enlace que redirige a /roles -->
-                        <a href="{{ route('roles') }}" class="nav-link" title="Ir a Roles">
-                            <i class="fa-solid fa-users fa-3x mb-3 text-gray-800"></i>
-                        </a>
+                        <!-- Espacio para Iconos -->
+                        <div class="w-1/2 flex justify-end items-center px-6">
+                            <!-- Enlace que redirige a /roles -->
+                            <a href="{{ route('roles') }}" class="nav-link" title="Ir a Roles">
+                                <i class="fa-solid fa-users fa-3x mb-3 text-gray-800"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             <!-- Segunda Sección -->
             <div class="bg-gray-400 shadow overflow-hidden shadow-xl sm:rounded-lg mb-8">

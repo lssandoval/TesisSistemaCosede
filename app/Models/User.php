@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -11,6 +12,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
@@ -31,13 +33,10 @@ class User extends Authenticatable implements LdapAuthenticatable
         'username',
         'email',
         'password',
+        'cedula',
     ];
 
-    public function persona()
-    {
-        return $this->hasOne(Persona::class, 'per_id', 'id'); // Ajusta los nombres de clave si es necesario
-    }
-    /**
+     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
@@ -69,5 +68,21 @@ class User extends Authenticatable implements LdapAuthenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    public function belongsDepartment($role): bool
+    {
+        dump($role);
+        $persona = $this->load("persona");
+
+        if($persona->per_unidad === $role){
+            return true;
+        }
+        return true;
     }
 }

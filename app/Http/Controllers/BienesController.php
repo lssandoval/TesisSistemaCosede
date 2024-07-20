@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nuevat;
+use App\Models\NuevaC;
 use Illuminate\Support\Facades\Log;
 
 class BienesController extends Controller
@@ -57,31 +58,64 @@ class BienesController extends Controller
     public function editarBien($id)
     {
         $bien = Nuevat::find($id);
-
         if (!$bien) {
             return redirect()->route('bienes')->with('error', 'Bien no encontrado.');
         }
 
-        return view('editar_bien', compact('bien'));
+        $nuevaCs = NuevaC::where('codigo_bien', $bien->codigo_bien)->get();
+
+        return view('editar_bien', compact('bien', 'nuevaCs'));
     }
 
     public function actualizarBien(Request $request, $id)
     {
         $request->validate([
             'codigo_bien' => 'required|string|max:255',
-            // Añade aquí las demás validaciones para los campos
+            'en_uso' => 'nullable|string|max:255',
+            'marca' => 'nullable|string|max:255',
+            'serial' => 'nullable|string|max:255',
+            'ubicacion' => 'nullable|string|max:255',
+            'custodio_identificado' => 'nullable|string|max:255',
+            'fecha_ingreso' => 'nullable|string|max:255',
+            'periodo_garantia' => 'nullable|string|max:255',
+            'proveedor' => 'nullable|string|max:255',
+            'estado' => 'nullable|string|max:255',
+            'fecha_ultimo_mantenimiento' => 'nullable|string|max:255',
+            'recomendacion_1' => 'nullable|string|max:255',
+            'recomendacion_2' => 'nullable|string|max:255',
+            'cedula_esbye' => 'nullable|string|max:255',
+            'custodio_esbye' => 'nullable|string|max:255',
+            'serial_esbye' => 'nullable|string|max:255',
+            'modelo_esbye' => 'nullable|string|max:255',
+            'descripcion_esbye' => 'nullable|string|max:255',
+            'componentes.*.codigo_bien_compuesto' => 'nullable|string|max:255',
+            'componentes.*.tipoC' => 'nullable|string|max:255',
+            'componentes.*.descripcionC' => 'nullable|string|max:255',
         ]);
 
         $bien = Nuevat::find($id);
-
         if (!$bien) {
             return redirect()->route('bienes')->with('error', 'Bien no encontrado.');
         }
 
-        $bien->codigo_bien = $request->codigo_bien;
-        // Actualiza aquí los demás campos
-
+        $bien->fill($request->all());
         $bien->save();
+
+        // Actualizar los campos del modelo NuevaC
+        if ($request->has('componentes')) {
+            foreach ($request->componentes as $componenteData) {
+                if (isset($componenteData['id'])) {
+                    $nuevaC = NuevaC::find($componenteData['id']);
+                    if ($nuevaC) {
+                        $nuevaC->fill($componenteData);
+                        $nuevaC->save();
+                    }
+                } else {
+                    // Si no hay ID, se asume que es un nuevo componente
+                    NuevaC::create($componenteData);
+                }
+            }
+        }
 
         return redirect()->route('bienes')->with('success', 'Bien actualizado correctamente.');
     }
