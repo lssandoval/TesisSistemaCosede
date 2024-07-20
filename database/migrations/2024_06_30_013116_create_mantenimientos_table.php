@@ -13,7 +13,7 @@ class CreateMantenimientosTable extends Migration
      */
     public function up()
     {
-        Schema::create('mantenimientos', function (Blueprint $table) {
+        Schema::connection('pgsql')->create('mantenimientos', function (Blueprint $table) {
             $table->id('id_mantenimiento');
             $table->unsignedBigInteger('id_nuevat');
             $table->foreign('id_nuevat')->references('id')->on('nuevat')->onDelete('cascade');
@@ -33,6 +33,6 @@ class CreateMantenimientosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mantenimientos');
+        Schema::connection('pgsql')->dropIfExists('mantenimientos');
     }
 }

@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '02953ef27260e693bbe4133d700db8875e8782ec',
+        'reference' => '81268ac3de44ea17d97c05b2a14a19ba3c91b5dc',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -73,6 +73,24 @@
             'reference' => 'f41715465d65213d644d3141a6a93081be5d3549',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dflydev/dot-access-data',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'directorytree/ldaprecord' => array(
+            'pretty_version' => 'v3.6.4',
+            'version' => '3.6.4.0',
+            'reference' => '81768726262e3000675598821353c801e71df71d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../directorytree/ldaprecord',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'directorytree/ldaprecord-laravel' => array(
+            'pretty_version' => 'v3.3.3',
+            'version' => '3.3.3.0',
+            'reference' => '518fd4c14f839ee9c2d7eb9d4697615f8e18748b',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../directorytree/ldaprecord-laravel',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -436,7 +454,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '02953ef27260e693bbe4133d700db8875e8782ec',
+            'reference' => '81268ac3de44ea17d97c05b2a14a19ba3c91b5dc',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -910,8 +928,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(

@@ -8,7 +8,7 @@ use App\Http\Controllers\GenerarListaQRController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PdfController;
-
+use App\Http\Controllers\PersonaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +19,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -32,6 +33,7 @@ Route::middleware([
 
     // Rutas relacionadas con archivos
     Route::post('/subir-archivo', [ArchivoController::class, 'subirArchivo'])->name('subirArchivo');
+    Route::post('/subir-componentes', [ArchivoController::class, 'subirArchivoComponentes'])->name('subirArchivoComponentes');
     Route::get('/historial-carga', [ArchivoController::class, 'historialCarga'])->name('historial-carga');
 
     // Ruta para generar código QR
@@ -50,4 +52,7 @@ Route::middleware([
 
     // Generar PDF
     Route::get('/generar-pdf', [PdfController::class, 'generarPdf'])->name('generar.pdf');
+
+
+    Route::get('personas', [PersonaController::class, 'index']);
 });

@@ -59,57 +59,31 @@
                                 <th scope="col" class="fixed-column">Acciones</th>
                                 <th scope="col">ID</th>
                                 <th scope="col">Código Bien</th>
-                                <th scope="col">Código Anterior</th>
-                                <th scope="col">Identificador</th>
-                                <th scope="col">Nro de Acta/Matriz</th>
-                                <th scope="col">(BLD) o (BCA)</th>
-                                <th scope="col">Bien</th>
-                                <th scope="col">Serie/Identificación</th>
-                                <th scope="col">Modelo/Características</th>
-                                <th scope="col">Marca/Otros</th>
-                                <th scope="col">Crítico</th>
-                                <th scope="col">Moneda</th>
-                                <th scope="col">Valor de Compra</th>
-                                <th scope="col">Recompra</th>
-                                <th scope="col">Color</th>
-                                <th scope="col">Material</th>
-                                <th scope="col">Dimensiones</th>
-                                <th scope="col">Condición del Bien</th>
-                                <th scope="col">Habilitado</th>
-                                <th scope="col">Estado Bien</th>
-                                <th scope="col">Id Bodega</th>
-                                <th scope="col">Bodega</th>
-                                <th scope="col">Id Ubicación</th>
-                                <th scope="col">Ubicación de Bodega</th>
-                                <th scope="col">Nro de Cédula/RUC</th>
-                                <th scope="col">Custodio Actual</th>
-                                <th scope="col">Custodio Activo</th>
-                                <th scope="col">Origen del Ingreso</th>
-                                <th scope="col">Tipo de Ingreso</th>
-                                <th scope="col">Nro de Compromiso</th>
-                                <th scope="col">Estado del Acta</th>
-                                <th scope="col">Contabilizado del Acta</th>
-                                <th scope="col">Contabilizado del Bien</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Item/Renglón</th>
-                                <th scope="col">Cuenta Contable</th>
-                                <th scope="col">Depreciable</th>
-                                <th scope="col">Fecha de Creación</th>
-                                <th scope="col">Fecha de Ingreso</th>
-                                <th scope="col">Fecha Última Depreciación</th>
-                                <th scope="col">Vida Útil</th>
-                                <th scope="col">Fecha Término Depreciación</th>
-                                <th scope="col">Valor Contable</th>
-                                <th scope="col">Valor Residual</th>
-                                <th scope="col">Valor en Libros</th>
-                                <th scope="col">Valor Depreciación Acumulada</th>
-                                <th scope="col">Comodato</th>
+                                <th scope="col">En Uso</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Modelo</th>
+                                <th scope="col">Serial</th>
+                                <th scope="col">Ubicación</th>
+                                <th scope="col">Custodio Identificado</th>
+                                <th scope="col">Fecha Ingreso</th>
+                                <th scope="col">Periodo Garantía</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Fecha Último Mantenimiento</th>
+                                <th scope="col">Recomendación 1</th>
+                                <th scope="col">Recomendación 2</th>
+                                <th scope="col">Cédula Esbye</th>
+                                <th scope="col">Custodio Esbye</th>
+                                <th scope="col">Serial Esbye</th>
+                                <th scope="col">Modelo Esbye</th>
+                                <th scope="col">Descripción Esbye</th>
                                 <th scope="col">Fecha Creación</th>
                                 <th scope="col">Fecha Actualización</th>
-
                             </tr>
                         </thead>
                     </table>
+
                 </div>
             </div>
         </div>

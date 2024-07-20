@@ -8,7 +8,7 @@ class CreateArchivoHistorialsTable extends Migration
 {
     public function up()
     {
-        Schema::create('archivo_historials', function (Blueprint $table) {
+        Schema::connection('pgsql')->create('archivo_historials', function (Blueprint $table) {
             $table->id();
             $table->string('usuario');
             $table->string('nombre_archivo');
@@ -19,6 +19,6 @@ class CreateArchivoHistorialsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('archivo_historials');
+        Schema::connection('pgsql')->dropIfExists('archivo_historials');
     }
 }
