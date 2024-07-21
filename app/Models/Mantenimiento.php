@@ -11,12 +11,15 @@ class Mantenimiento extends Model
 
     // Aquí puedes especificar los campos que puedes rellenar
     protected $fillable = [
-        'id_nuevat',
-        'tipo_mantenimiento',
-        'observacion_mantenimiento',
-        'recomendacion_mantenimiento',
+        'codigo_bien',
+        'tipo_bien',
+        'uso_bien',
+        'custodio_bien',
         'fecha_mantenimiento',
-        'tecnico_mantenimiento'
+        'hora_inicio',
+        'hora_fin',
+        'tecnico_asignado',
+        'id_nuevat'
     ];
 
     // Relación con el modelo Nuevat

@@ -22,13 +22,5 @@ return new class extends Migration
         });
     }
 
-    public function down()
-    {
-        Schema::connection('pgsql')->dropIfExists('nuevaC');
-        
-        Schema::connection('pgsql')->table('nuevaC', function (Blueprint $table) {
-            $table->dropForeign(['codigo_bien']);
-        });
 
-    }
 };

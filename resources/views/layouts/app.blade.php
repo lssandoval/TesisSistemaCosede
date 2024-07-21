@@ -17,14 +17,16 @@
 
     <!-- Styles -->
     @livewireStyles
-    
+
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
     <script src="https://kit.fontawesome.com/577c509b41.js" crossorigin="anonymous"></script>
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
 <body class="font-sans antialiased">

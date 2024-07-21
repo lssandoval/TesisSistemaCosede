@@ -10,6 +10,7 @@ use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\ProgramacionMantenimientosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,6 +47,9 @@ Route::middleware([
     // Rutas Mantenimientos
     Route::get('/mantenimientos/{id}', [MantenimientoController::class, 'mostrarMantenimientos'])->name('mostrarMantenimientos.mostrar');
     Route::post('/mantenimientos/guardar', [MantenimientoController::class, 'guardarMantenimiento'])->name('guardar-mantenimiento');
+
+    Route::get('/programacion_mantenimientos', [ProgramacionMantenimientosController::class, 'index'])->name('programacion-mantenimientos');
+
     // Ruta de Asignación de Roles
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
 
