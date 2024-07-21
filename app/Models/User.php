@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -36,7 +37,7 @@ class User extends Authenticatable implements LdapAuthenticatable
         'cedula',
     ];
 
-     /**
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
@@ -70,6 +71,10 @@ class User extends Authenticatable implements LdapAuthenticatable
         ];
     }
 
+    public function persona(): HasOne
+    {
+        return $this->hasOne(Persona::class, 'per_cedula', 'cedula');
+    }
     /**
      * Get the attributes that should be cast.
      *
@@ -80,7 +85,7 @@ class User extends Authenticatable implements LdapAuthenticatable
         dump($role);
         $persona = $this->load("persona");
 
-        if($persona->per_unidad === $role){
+        if ($persona->per_unidad === $role) {
             return true;
         }
         return true;

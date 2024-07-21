@@ -36,14 +36,14 @@
 
                         <!-- Botón Generar Excel con QR -->
                         <div class="mb-3">
-                            <a href="{{ route('generar.excel') }}" class="btn btn-success" wire:click.prevent="showLoadingModal">
+                            <a href="{{ route('generar.pdf') }}" class="btn btn-success" wire:click.prevent="showLoadingModal">
                                 <i class="fa-regular fa-file-excel"></i> <!-- Icono de Excel -->
                                 Generar Excel con QR
                             </a>
                         </div>
 
                         <div class="mb-3">
-                            <a href="{{ route('generar.pdf') }}" class="btn btn-danger" wire:click.prevent="showLoadingModal">
+                            <a href="{{ route('generar.pdfReporte') }}" class="btn btn-danger" wire:click.prevent="showLoadingModal">
                                 <i class="fa-solid fa-file-pdf"></i> <!-- Icono de PDF -->
                                 Generar PDF
                             </a>

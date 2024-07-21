@@ -42,7 +42,7 @@ Route::middleware([
     // Ruta para generar lista de QRs
     Route::post('/generar-qrs', [GenerarListaQRController::class, 'generateQRCodes'])->name('generar.qrs');
     Route::get('/bienesl', [GenerarListaQRController::class, 'index'])->name('bienes.index');
-    Route::get('/generar-excel', [GenerarListaQRController::class, 'generateExcel'])->name('generar.excel');
+    Route::get('/generar-pdf', [GenerarListaQRController::class, 'generatePDF'])->name('generar.pdf');
 
     // Rutas Mantenimientos
     Route::get('/mantenimientos/{id}', [MantenimientoController::class, 'mostrarMantenimientos'])->name('mostrarMantenimientos.mostrar');
@@ -54,7 +54,7 @@ Route::middleware([
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
 
     // Generar PDF
-    Route::get('/generar-pdf', [PdfController::class, 'generarPdf'])->name('generar.pdf');
+    Route::get('/generar-pdfReporte', [PdfController::class, 'generarpdfReporte'])->name('generar.pdfReporte');
 
 
     Route::get('personas', [PersonaController::class, 'index']);

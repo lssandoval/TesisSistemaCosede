@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Persona extends Model
 {
@@ -14,7 +16,7 @@ class Persona extends Model
     protected $primaryKey = 'per_id';
     protected $connection = 'pgsql2';
 
-    protected $fillable = ['per_unidad'];
+    protected $fillable = ['per_unidad', 'per_cedula'];
 
     public function areas(): BelongsToMany
     {
@@ -24,5 +26,15 @@ class Persona extends Model
     public function getUnidadAttribute()
     {
         return $this->attributes['per_unidad'];
+    }
+
+    public function usuario(): HasOne
+    {
+        return $this->hasOne(Usuario::class, 'per_id', 'per_id');
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'cedula', 'per_cedula');
     }
 }

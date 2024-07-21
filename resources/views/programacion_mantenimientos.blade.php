@@ -11,8 +11,7 @@
             <div class="flex space-x-6">
                 <!-- Contenedor Izquierdo -->
                 <div class="w-1/2 bg-gray-100 p-6 rounded-lg shadow-md">
-                    <h3 class="text-lg font-semibold mb-4">Información de la Página</h3>
-                    <p>Aquí se explica cómo generar y gestionar los mantenimientos programados.</p>
+                    <h3 class="text-lg font-semibold mb-4">Programación Mantenimientos</h3>
                     <p>Seleccione una fecha en el calendario y complete el formulario para registrar un nuevo mantenimiento.</p>
                     <button id="registerMaintenanceBtn" class="mt-4 px-4 py-2 bg-white text-gray-800 rounded-md">Registrar Mantenimiento</button>
                 </div>

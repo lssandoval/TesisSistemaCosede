@@ -22,12 +22,15 @@ class MaintenanceModal extends Component
     }
 
     #[On("openModal")]
-    public function openModal($date)
+    public function openModal($date, $nuevatId = null)
     {
         $this->selectedDate = $date;
         $this->isOpen = true;
         $this->dispatch('openModalMantenimientos', date: $date);
         // Puedes usar $date para mostrar la fecha en el modal si es necesario
+        if ($nuevatId) {
+            $this->loadNuevatData($nuevatId);
+        }
     }
     #[On("closeModal")]
     public function closeModal()
@@ -61,7 +64,7 @@ class MaintenanceModal extends Component
             'tipo_bien' => $this->tipoBien,
             'uso_bien' => $this->usoBien,
             'custodio_bien' => $this->custodioBien,
-           'fecha_mantenimiento' => $this->selectedDate, // Utiliza la fecha seleccionada
+            'fecha_mantenimiento' => $this->selectedDate, // Utiliza la fecha seleccionada
             'hora_inicio' => $this->horaInicio,
             'hora_fin' => $this->horaFin,
             'tecnico_asignado' => $this->tecnicoAsignado,
@@ -83,6 +86,27 @@ class MaintenanceModal extends Component
         $this->tecnicoAsignado = '';
         $this->selectedNuevatId = null;
     }
+
+    public function updatedSelectedNuevatId($value)
+    {
+        if ($value) {
+            $this->loadNuevatData($value);
+        } else {
+            $this->resetInputFields();
+        }
+    }
+
+    private function loadNuevatData($id)
+    {
+        $nuevat = Nuevat::find($id);
+        if ($nuevat) {
+            $this->codigoBien = $nuevat->codigo_bien;
+            $this->tipoBien = $nuevat->tipo;
+            $this->usoBien = $nuevat->en_uso;
+            $this->custodioBien = $nuevat->custodio_identificado;
+        }
+    }
+
 
     public function render()
     {

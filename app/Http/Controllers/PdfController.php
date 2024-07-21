@@ -10,7 +10,7 @@ use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class PdfController extends Controller
 {
-    public function generarPdf(Request $request)
+    public function generarpdfReporte(Request $request)
     {
         // Aumenta el límite de memoria según sea necesario
         ini_set('memory_limit', '512M');

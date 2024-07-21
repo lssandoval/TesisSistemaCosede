@@ -11,9 +11,8 @@ use BaconQrCode\Writer;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class GenerarListaQRController extends Controller
 {
@@ -41,7 +40,7 @@ class GenerarListaQRController extends Controller
 
             // Instanciar el renderizador de imagen con Imagick
             $renderer = new ImageRenderer(
-                new RendererStyle(300), // Reducir el tamaño a 300
+                new RendererStyle(150), // Reducir el tamaño a 300
                 new ImagickImageBackEnd()
             );
 
@@ -53,7 +52,7 @@ class GenerarListaQRController extends Controller
                 $qrCodeData = $writer->writeString($contenidoQR);
 
                 // Generar un nombre único para el archivo JPEG
-                $fileName = 'qr_code_' . $data['codigo_bien'] . '.jpg';
+                $fileName = 'qr_code_' . $data['codigo_bien'] . '.png';
 
                 // Guardar el código QR en el almacenamiento de Laravel
                 Storage::disk('public')->put('Qrcodes/' . $fileName, $qrCodeData);
@@ -70,78 +69,76 @@ class GenerarListaQRController extends Controller
         return Redirect::back()->with('success', 'Códigos QR generados correctamente para todos los bienes.');
     }
 
-    public function generateExcel()
+    public function generatePDF()
     {
-        // Crear una nueva hoja de cálculo
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-
         // Obtener todas las transacciones de la base de datos
         $transacciones = Transaccion::all();
 
-        // Establecer los encabezados
-        $sheet->setCellValue('A1', 'ID');
-        $sheet->setCellValue('B1', 'Código Bien');
-        $sheet->setCellValue('C1', 'Código QR');
+        // Configuración de dompdf
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
 
-        // Definir el tamaño para las imágenes del QR
-        $imageWidth = 100;
-        $imageHeight = 100;
+        $dompdf = new Dompdf($options);
 
-        // Iterar sobre las transacciones y agregar los datos a la hoja de cálculo
-        $row = 2; // Comenzar en la segunda fila
-        foreach ($transacciones as $transaccion) {
-            $data = [
-                'id' => $transaccion->id,
-                'codigo_bien' => $transaccion->codigo_bien,
-            ];
+        // Preparar el HTML para el PDF
+        $html = '<html><head><style>
+            body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+            .page { page-break-after: always; }
+            .container { width: 100%; margin: 0 auto; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+            th { background-color: #f2f2f2; }
+            .qr-code { width: 80px; height: 80px; } // Ajusta el tamaño aquí
+        </style></head><body>';
 
-            // Agregar datos a las celdas
-            $sheet->setCellValue('A' . $row, $data['id']);
-            $sheet->setCellValue('B' . $row, $data['codigo_bien']);
+        $pageSize = 10; // Número de filas por página
+        $totalRows = count($transacciones);
+        $totalPages = ceil($totalRows / $pageSize);
+        $currentRow = 0;
 
-            // Obtener la ruta del código QR generado anteriormente
-            $fileName = 'qr_code_' . $data['codigo_bien'] . '.jpg';
-            $qrCodePath = storage_path('app/public/Qrcodes/' . $fileName);
+        for ($page = 1; $page <= $totalPages; $page++) {
+            $html .= '<div class="page">';
+            $html .= '<div class="container">';
+            $html .= '<table>';
+            $html .= '<thead><tr><th>ID</th><th>Código Bien</th><th>Código QR</th></tr></thead>';
+            $html .= '<tbody>';
 
-            // Verificar si el archivo QR existe
-            if (file_exists($qrCodePath)) {
-                // Insertar la imagen del QR en la celda
-                $drawing = new Drawing();
-                $drawing->setName('QR Code');
-                $drawing->setDescription('QR Code');
-                $drawing->setPath($qrCodePath);
-                $drawing->setHeight($imageHeight);
-                $drawing->setWidth($imageWidth);
-                $drawing->setCoordinates('C' . $row);
+            for ($row = $currentRow; $row < $currentRow + $pageSize && $row < $totalRows; $row++) {
+                $transaccion = $transacciones[$row];
+                $fileName = 'qr_code_' . $transaccion->codigo_bien . '.png';
+                $qrCodeUrl = url('storage/Qrcodes/' . $fileName); // Genera una URL pública
 
-                // Ajustar la posición de la imagen dentro de la celda (opcional)
-                $drawing->setOffsetX(5); // Ajuste horizontal
-                $drawing->setOffsetY(5); // Ajuste vertical
-
-                // Insertar la imagen en la celda
-                $sheet->getRowDimension($row)->setRowHeight($imageHeight + 10); // Ajustar la altura de la fila si es necesario
-                $sheet->setCellValue('C' . $row, ''); // Asegurar que la celda contenga algún valor para que la imagen se inserte correctamente
-                $drawing->setWorksheet($sheet);
-            } else {
-                $sheet->setCellValue('C' . $row, 'QR no encontrado');
+                $html .= '<tr>';
+                $html .= '<td>' . $transaccion->id . '</td>';
+                $html .= '<td>' . $transaccion->codigo_bien . '</td>';
+                $html .= '<td>';
+                if (Storage::disk('public')->exists('Qrcodes/' . $fileName)) {
+                    $html .= '<img src="' . $qrCodeUrl . '" class="qr-code" />';
+                } else {
+                    $html .= 'QR no encontrado';
+                }
+                $html .= '</td>';
+                $html .= '</tr>';
             }
 
-            $row++;
+            $html .= '</tbody>';
+            $html .= '</table>';
+            $html .= '</div>';
+            $html .= '</div>';
+
+            $currentRow += $pageSize;
         }
 
-        // Establecer el ancho de las columnas
-        $sheet->getColumnDimension('A')->setWidth(10);
-        $sheet->getColumnDimension('B')->setWidth(15);
-        $sheet->getColumnDimension('C')->setWidth(30);
+        $html .= '</body></html>';
 
-        // Guardar el archivo Excel
-        $writer = new Xlsx($spreadsheet);
-        $fileName = 'lista_codigos_qr.xlsx';
-        $filePath = public_path($fileName);
-        $writer->save($filePath);
+        // Cargar el HTML y generar el PDF
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
 
-        // Devolver el archivo para su descarga
-        return response()->download($filePath)->deleteFileAfterSend(true);
+        // Descargar el archivo PDF
+        return $dompdf->stream('lista_codigos_qr.pdf', ['Attachment' => true]);
     }
 }
