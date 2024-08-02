@@ -9,9 +9,9 @@ class Usuario extends Model
 {
     use HasFactory;
 
-    protected $table = 'login.usuario'; // Define el esquema y la tabla si es necesario
+    protected $table = 'login.usuario';
     protected $primaryKey = 'per_id';
-    protected $connection = 'pgsql2'; // Asegúrate de usar la conexión correcta
+    protected $connection = 'pgsql2';
 
     protected $fillable = ['est_id'];
 
@@ -19,5 +19,10 @@ class Usuario extends Model
     public function persona()
     {
         return $this->belongsTo(Persona::class, 'per_id', 'per_id');
+    }
+
+    public function getCedulaAttribute()
+    {
+        return $this->persona ? $this->persona->per_cedula : null;
     }
 }

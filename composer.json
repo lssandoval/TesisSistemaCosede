@@ -9,6 +9,7 @@
         "bacon/bacon-qr-code": "^3.0",
         "barryvdh/laravel-dompdf": "^2.2",
         "directorytree/ldaprecord-laravel": "^3.3",
+        "inertiajs/inertia-laravel": "*",
         "laravel/framework": "^11.9",
         "laravel/jetstream": "^5.1",
         "laravel/sanctum": "^4.0",

@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('bienes') }}" :active="request()->routeIs('bienes')">
+                    <x-nav-link href="{{ route('asistencias_tecnologicas') }}" :active="request()->routeIs('asistencias_tecnologicas')">
                         {{ __('Asistencias Tecnológicas') }}
                     </x-nav-link>
                 </div>
@@ -178,7 +178,7 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('bienes') }}" :active="request()->routeIs('bienes')">
+            <x-responsive-nav-link href="{{ route('asistencias_tecnologicas') }}" :active="request()->routeIs('asistencias_tecnologicas')">
                 {{ __('Asistencias Tecnológicas') }}
             </x-responsive-nav-link>
         </div>

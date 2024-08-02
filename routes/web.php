@@ -11,7 +11,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ProgramacionMantenimientosController;
-
+use App\Http\Controllers\AsistenciasTecnologicassController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -58,4 +58,9 @@ Route::middleware([
 
 
     Route::get('personas', [PersonaController::class, 'index']);
+
+    //Ruta Asistencias Tecnologicas
+    Route::get('/asistencias-tecnologicas', [AsistenciasTecnologicassController::class, 'index'])->name('asistencias_tecnologicas');
+    Route::post('/asistencias', [AsistenciasTecnologicassController::class, 'store'])->name('asistencias.store');
+    Route::post('/asistencias/storeSolution', [AsistenciasTecnologicassController::class, 'storeSolution'])->name('asistencias.storeSolution');
 });

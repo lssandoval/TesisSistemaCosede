@@ -27,6 +27,10 @@
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+
+
 </head>
 
 <body class="font-sans antialiased">

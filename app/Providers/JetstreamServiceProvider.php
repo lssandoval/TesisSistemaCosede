@@ -10,6 +10,7 @@ use Laravel\Fortify\Fortify;
 use Laravel\Jetstream\Jetstream;
 use App\Models\Nuevat;
 use App\Policies\NuevatPolicy;
+use Laravel\Fortify\Http\Requests\LoginRequest;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -24,20 +25,32 @@ class JetstreamServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-
-    public function username()
-    {
-        return 'username';
-    }
-
     public function boot(): void
     {
         $this->configurePermissions();
 
-        Fortify::authenticateUsing(function ($request) {
+        Fortify::authenticateUsing(function (LoginRequest $request) {
+            // Intentar obtener las credenciales desde las cookies
+            $username = $request->cookie('custom_username');
+            $password = $request->cookie('custom_password');
+
+            // Si las cookies están presentes, intentar autenticación con ellas
+            if ($username && $password) {
+                $validated = Auth::validate([
+                    'samaccountname' => $username,
+                    'password' => $password,
+                ]);
+                if ($validated) {
+                    return Auth::getLastAttempted();
+                }
+            }
+
+            // Si las cookies no están presentes, usar los datos del formulario
             $validated = Auth::validate([
-                'samaccountname' => $request->username, 'password' => $request->password
+                'samaccountname' => $request->username,
+                'password' => $request->password,
             ]);
+
             return $validated ? Auth::getLastAttempted() : null;
         });
 
