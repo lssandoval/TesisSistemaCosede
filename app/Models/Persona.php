@@ -28,7 +28,8 @@ class Persona extends Model
         return $this->attributes['per_unidad'];
     }
 
-    public function usuario(): HasOne
+    // Relación con el modelo Usuario
+    public function usuario()
     {
         return $this->hasOne(Usuario::class, 'per_id', 'per_id');
     }
@@ -36,5 +37,10 @@ class Persona extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'cedula', 'per_cedula');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'are_id', 'are_id');
     }
 }

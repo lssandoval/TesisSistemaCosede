@@ -1,8 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
+        @can('utic.bienes')
         <h2 class="font-semibold text-xl text-gray-50 leading-tight">
-            {{ __('Tabla Bienes') }}
+            {{ __('Gestión Bienes Tecnológicos') }}
         </h2>
+        @endcan
+        @can('visualizador.datatable.bienes')
+        <h2 class="font-semibold text-xl text-gray-50 leading-tight">
+            {{ __('Mis Bienes') }}
+        </h2>
+        @endcan
+
     </x-slot>
 
     <div class="container-fluid py-12">
@@ -12,6 +20,7 @@
                     <div class="mb-3 flex justify-between items-center">
                         <!-- Botón Generar Códigos QR en Masa -->
                         <div class="mb-3">
+                            @can('utic.generate-qrcode')
                             <form action="{{ route('generar.qrs') }}" method="POST" wire:submit.prevent="showLoadingModal">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">
@@ -19,6 +28,7 @@
                                     Generar Códigos QR en Masa
                                 </button>
                             </form>
+                            @endcan
                         </div>
                         <!-- Recuadro informativo (Tutorial) -->
                         <div class="mb-3 bg-gray-200 p-3 rounded">
@@ -36,17 +46,21 @@
 
                         <!-- Botón Generar Excel con QR -->
                         <div class="mb-3">
+                            @can('utic.generar.qrs')
                             <a href="{{ route('generar.pdf') }}" class="btn btn-success" wire:click.prevent="showLoadingModal">
                                 <i class="fa-regular fa-file-excel"></i> <!-- Icono de Excel -->
                                 Generar Excel con QR
                             </a>
+                            @endcan
                         </div>
 
                         <div class="mb-3">
+                            @can('utic.generar.pdf')
                             <a href="{{ route('generar.pdfReporte') }}" class="btn btn-danger" wire:click.prevent="showLoadingModal">
                                 <i class="fa-solid fa-file-pdf"></i> <!-- Icono de PDF -->
                                 Generar PDF
                             </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -83,21 +97,13 @@
                             </tr>
                         </thead>
                     </table>
-
                 </div>
             </div>
         </div>
     </div>
 
     @livewire('modales.modal-codigo-q-r')
-
     @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 
     <!-- Variable JavaScript para la ruta -->

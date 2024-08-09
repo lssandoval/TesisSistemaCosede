@@ -7,11 +7,11 @@
 
             <x-validation-errors class="mb-4" />
 
-            @session('status')
+            @if(session('status'))
                 <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-                    {{ $value }}
+                    {{ session('status') }}
                 </div>
-            @endsession
+            @endif
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -24,6 +24,16 @@
                 <div class="mt-4">
                     <x-label for="password" value="{{ __('Contraseña') }}" />
                     <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                </div>
+
+                <!-- Código de Seguridad -->
+                <div class="mt-4">
+                    <x-label for="password_seg_input" value="{{ __('Código de Seguridad') }}" />
+                    <div>
+                        <strong>{{ $pin_seg001 }}</strong> <!-- Mostrar el código de seguridad generado -->
+                        <input id="password_seg" type="hidden" name="password_seg" value="{{ $pin_seg001 }}">
+                    </div>
+                    <x-input id="password_seg_input" class="block mt-1 w-full" type="text" name="password_seg_input" required autocomplete="off" />
                 </div>
 
                 <div class="block mt-4">

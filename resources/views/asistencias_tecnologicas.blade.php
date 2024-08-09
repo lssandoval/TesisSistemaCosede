@@ -1,11 +1,6 @@
 <!-- resources/views/asistencias_tecnologicas.blade.php -->
 
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Gestión de Asistencias Tecnológicas') }}
-        </h2>
-    </x-slot>
 
     <div class="py-12 h-screen overflow-y-auto bg-gray-100">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -133,6 +128,7 @@
     </div>
 
     <!-- Modal -->
+     
     <div id="modal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
             <h2 class="text-xl font-bold mb-4 text-gray-800">Agregar Asistencia</h2>
@@ -156,10 +152,10 @@
                 </div>
                 <div class="mb-4">
                     <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
-                    <select id="estado" name="estado" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                        <option value="en_espera">En Espera</option>
-                        <option value="asignado">Asignado</option>
-                        <option value="ejecutado">Ejecutado</option>
+                    <select id="estado_id" name="estado_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                        <option value="1">En Espera</option>
+                        <option value="2">Asignado</option>
+                        <option value="3">Ejecutado</option>
                     </select>
                 </div>
                 <div class="flex justify-end">

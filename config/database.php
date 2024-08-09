@@ -99,13 +99,13 @@ return [
             'url' => env('DB2_URL'),
             'host' => env('DB2_HOST', '127.0.0.1'),
             'port' => env('DB2_PORT', '5432'),
-            'database' => env('DB2_DATABASE', 'laravel'),
-            'username' => env('DB2_USERNAME', 'root'),
-            'password' => env('DB2_PASSWORD', ''),
+            'database' => env('DB2_DATABASE', 'portal'),
+            'username' => env('DB2_USERNAME', 'tesistas'),
+            'password' => env('DB2_PASSWORD', 'Tes1ST@s2024.'),
             'charset' => env('DB2_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
-            'search_path' => 'public',
+            'search_path' => 'distributivo', // Cambia el search_path al esquema correcto
             'sslmode' => 'prefer',
         ],
 
@@ -159,7 +159,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
