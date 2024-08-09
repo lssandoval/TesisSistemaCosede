@@ -31,20 +31,6 @@ class JetstreamServiceProvider extends ServiceProvider
 
         Fortify::authenticateUsing(function (LoginRequest $request) {
             // Intentar obtener las credenciales desde las cookies
-            $username = $request->cookie('custom_username');
-            $password = $request->cookie('custom_password');
-
-            // Si las cookies están presentes, intentar autenticación con ellas
-            if ($username && $password) {
-                $validated = Auth::validate([
-                    'samaccountname' => $username,
-                    'password' => $password,
-                ]);
-                if ($validated) {
-                    return Auth::getLastAttempted();
-                }
-            }
-
             // Si las cookies no están presentes, usar los datos del formulario
             $validated = Auth::validate([
                 'samaccountname' => $request->username,

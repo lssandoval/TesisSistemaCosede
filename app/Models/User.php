@@ -11,9 +11,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasTeams;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\RolesHistoria;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
@@ -23,6 +28,9 @@ class User extends Authenticatable implements LdapAuthenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use AuthenticatesWithLdap;
+    use HasRoles;
+
+    protected $guard_name = 'web';
 
     /**
      * The attributes that are mass assignable.
@@ -75,19 +83,17 @@ class User extends Authenticatable implements LdapAuthenticatable
     {
         return $this->hasOne(Persona::class, 'per_cedula', 'cedula');
     }
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    public function belongsDepartment($role): bool
+    public function rolesHistory(): HasMany
     {
-        dump($role);
-        $persona = $this->load("persona");
+        return $this->hasMany(RolesHistoria::class, 'user_id');
+    }
 
-        if ($persona->per_unidad === $role) {
-            return true;
-        }
-        return true;
+    public function hasRoleByName(string $roleName): bool
+    {
+        return $this->rolesHistory()
+                    ->whereHas('role', function($query) use ($roleName) {
+                        $query->where('name', $roleName);
+                    })
+                    ->exists();
     }
 }

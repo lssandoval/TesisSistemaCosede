@@ -1,3 +1,3 @@
 <a href="{{ route('dashboard') }}">
-    <img src="{{ asset('images/icono.jpg') }}" class="block h-12 w-auto rounded-full" />
+    <img src="{{ asset('images/icono1.png') }}" class="block h-20 w-auto" />
 </a>

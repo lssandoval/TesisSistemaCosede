@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -60,21 +64,21 @@ return [
     */
 
     'providers' => [
-    'users' => [
-        'driver' => 'ldap',
-        'model' => LdapRecord\Models\ActiveDirectory\User::class,
-        'rules' => [],
-        'scopes' => [],
-        'database' => [
-            'model' => App\Models\User::class,
-            'sync_passwords' => false,
-            'sync_attributes' => [
-                'name' => 'cn',
-                'username' => 'samaccountname',
+        'users' => [
+            'driver' => 'ldap',
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
+            'rules' => [],
+            'scopes' => [],
+            'database' => [
+                'model' => App\Models\User::class,
+                'sync_passwords' => false,
+                'sync_attributes' => [
+                    'name' => 'cn',
+                    'username' => 'samaccountname',
+                ],
             ],
         ],
     ],
-],
 
 
     /*

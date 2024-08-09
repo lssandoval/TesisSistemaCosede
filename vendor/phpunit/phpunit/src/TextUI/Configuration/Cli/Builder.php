@@ -9,6 +9,7 @@
  */
 namespace PHPUnit\TextUI\CliArguments;
 
+use const DIRECTORY_SEPARATOR;
 use function array_map;
 use function array_merge;
 use function basename;
@@ -25,6 +26,8 @@ use SebastianBergmann\CliParser\Exception as CliParserException;
 use SebastianBergmann\CliParser\Parser as CliParser;
 
 /**
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+ *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 final class Builder
@@ -434,7 +437,7 @@ final class Builder
                 case '--group':
                     if (str_contains($option[1], ',')) {
                         EventFacade::emitter()->testRunnerTriggeredWarning(
-                            'Using comma-separated values with --group is deprecated and will no longer work in PHPUnit 12',
+                            'Using comma-separated values with --group is deprecated and will no longer work in PHPUnit 12. You can use --group multiple times instead.',
                         );
                     }
 
@@ -451,7 +454,7 @@ final class Builder
                 case '--exclude-group':
                     if (str_contains($option[1], ',')) {
                         EventFacade::emitter()->testRunnerTriggeredWarning(
-                            'Using comma-separated values with --exclude-group is deprecated and will no longer work in PHPUnit 12',
+                            'Using comma-separated values with --exclude-group is deprecated and will no longer work in PHPUnit 12. You can use --exclude-group multiple times instead.',
                         );
                     }
 
@@ -468,7 +471,7 @@ final class Builder
                 case '--covers':
                     if (str_contains($option[1], ',')) {
                         EventFacade::emitter()->testRunnerTriggeredWarning(
-                            'Using comma-separated values with --covers is deprecated and will no longer work in PHPUnit 12',
+                            'Using comma-separated values with --covers is deprecated and will no longer work in PHPUnit 12. You can use --covers multiple times instead.',
                         );
                     }
 
@@ -485,7 +488,7 @@ final class Builder
                 case '--uses':
                     if (str_contains($option[1], ',')) {
                         EventFacade::emitter()->testRunnerTriggeredWarning(
-                            'Using comma-separated values with --uses is deprecated and will no longer work in PHPUnit 12',
+                            'Using comma-separated values with --uses is deprecated and will no longer work in PHPUnit 12. You can use --uses multiple times instead.',
                         );
                     }
 
@@ -502,7 +505,7 @@ final class Builder
                 case '--test-suffix':
                     if (str_contains($option[1], ',')) {
                         EventFacade::emitter()->testRunnerTriggeredWarning(
-                            'Using comma-separated values with --test-suffix is deprecated and will no longer work in PHPUnit 12',
+                            'Using comma-separated values with --test-suffix is deprecated and will no longer work in PHPUnit 12. You can use --test-suffix multiple times instead.',
                         );
                     }
 
@@ -859,6 +862,8 @@ final class Builder
                     }
 
                     $coverageFilter[] = $option[1];
+
+                    $optionAllowedMultipleTimes = true;
 
                     break;
 

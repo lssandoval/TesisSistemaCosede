@@ -1,8 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Programación Mantenimientos') }}
+        <h2 class="font-semibold text-xl text-gray-50 leading-tight">
+            {{ __('Bienvenid@') }} {{ Auth::user()->name }}
         </h2>
+        <div class="flex justify-between items-center font-semibold text-xl text-gray-50 leading-tight">
+            <!-- Coordinación a la izquierda -->
+            @isset($coordinacion)
+            <div class="flex-1">
+                <p>Coordinación: {{ $coordinacion }}</p>
+            </div>
+            @endisset
+
+            <!-- Roles asignados a la derecha -->
+            @isset($rolesAsignadosNombres)
+            <div class="flex-1 text-right">
+                <p>Roles Asignados:</p>
+                <ul class="list-none">
+                    @foreach($rolesAsignadosNombres as $rol)
+                    <li>{{ $rol }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endisset
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -41,7 +61,7 @@
                     <tbody>
                         @foreach($mantenimientos as $mantenimiento)
                         <tr>
-                        <td class="py-2 px-4 border-b">{{ $mantenimiento->fecha_mantenimiento }}</td>
+                            <td class="py-2 px-4 border-b">{{ $mantenimiento->fecha_mantenimiento }}</td>
                             <td class="py-2 px-4 border-b">{{ $mantenimiento->codigo_bien }}</td>
                             <td class="py-2 px-4 border-b">{{ $mantenimiento->tipo_bien }}</td>
                             <td class="py-2 px-4 border-b">{{ $mantenimiento->uso_bien }}</td>
